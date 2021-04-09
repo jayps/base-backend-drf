@@ -19,9 +19,16 @@ class AppUserTokenObtainPairSerializer(TokenObtainPairSerializer):
         return token
 
 
-class RegisterSerializer(Serializer):
+class RegisterRequestSerializer(Serializer):
     email = serializers.EmailField()
     password = serializers.CharField()
+    first_name = serializers.CharField()
+    last_name = serializers.CharField()
+
+
+class RegisterResponseSerializer(Serializer):
+    id = serializers.UUIDField()
+    email = serializers.EmailField()
     first_name = serializers.CharField()
     last_name = serializers.CharField()
 

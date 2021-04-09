@@ -1,14 +1,18 @@
 from django.db import IntegrityError
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from base_backend.users.models import AppUser
 from base_backend.users.serializers import (
     AppUserTokenObtainPairSerializer,
-    RegisterSerializer,
+    RegisterRequestSerializer,
     UserSerializer,
+    RegisterResponseSerializer,
 )
 
 
@@ -16,11 +20,19 @@ class AppUserTokenObtainPairView(TokenObtainPairView):
     serializer_class = AppUserTokenObtainPairSerializer
 
 
-class RegisterView(CreateAPIView):
-    serializer_class = RegisterSerializer
-
-    def create(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
+class RegisterView(APIView):
+    @swagger_auto_schema(
+        request_body=RegisterRequestSerializer,
+        responses={
+            201: RegisterResponseSerializer(many=False),
+            400: openapi.Response("Invalid request"),
+        },
+    )
+    def post(self, request, *args, **kwargs):
+        """
+        Endpoint to register new users.
+        """
+        serializer = RegisterRequestSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
         try:
