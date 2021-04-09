@@ -8,7 +8,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
-from base_backend.users.views import AppUserTokenObtainPairView
+from base_backend.users.views import AppUserTokenObtainPairView, RegisterView
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -40,11 +40,12 @@ urlpatterns = [
     ),
     # Auth
     path(
-        "api/token/auth/",
+        "api/auth/login/",
         AppUserTokenObtainPairView.as_view(),
         name="token_obtain_pair",
     ),
-    path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path("api/auth/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path("api/auth/register/", RegisterView.as_view()),
     # Apps
     path("users/", include("base_backend.users.urls")),
 ]

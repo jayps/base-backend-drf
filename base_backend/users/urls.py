@@ -1,5 +1,5 @@
 from django.urls import path
 
-urlpatterns = [
+from base_backend.users.views import RegisterView
 
-]
+urlpatterns = []
