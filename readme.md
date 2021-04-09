@@ -24,6 +24,7 @@ The environment variables for this application are as follows:
 - `POSTGRES_PASSWORD`: Database password.
 - `WORKER_COUNT`: Worker count for WSGI.
 - `WORKER_TIMEOUT`: Worker timeout for WSGI.
+- `DJANGO_SETTINGS_MODULE`: Settings module to use. Useful for stuff like switching out settings during testing.
 All these variables are set in the default `docker-compose.yml` file for reference.
 
 ## Running commands in the container
@@ -31,3 +32,10 @@ Let's take a look at creating a super user as an example.
 `docker exec -it base-backend-api python manage.py createsuperuser`
 Where `base-backend-api` is the name of your container (run `docker ps` to get this), and `python manage.py createsuperuser` is your command.
 You can also bash into the container with `docker exec -it base-backend-api bash` and run commands within the container's environment.
+
+## Running tests
+Just run `docker-compose -f docker-compose.test.yml up`
+
+## Adding dependencies
+Now and then, you might need to install a new pip library. Remember to run `docker-compose up --build` in order to install your new dependencies in the container.
+Also, we know it's easy to just install modules. Please e mindful of what you're adding.

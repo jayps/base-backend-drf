@@ -3,9 +3,7 @@ import os
 from base_backend.utils.exceptions import EnvironmentVariableNotSetException
 
 
-def get_environment_variable(
-    name: str, raise_exception: bool = True, default: bool = None
-):
+def get_environment_variable(name: str, raise_exception: bool = True, default=None):
     """
     Method to retrieve envrionment variables.
     @param name: The name of the environment variable to retrieve

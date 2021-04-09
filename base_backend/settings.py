@@ -87,22 +87,16 @@ WSGI_APPLICATION = "base_backend.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": get_environment_variable("POSTGRES_DB"),
-        "USER": get_environment_variable("POSTGRES_USER"),
-        "HOST": get_environment_variable("POSTGRES_HOST"),
-        "PORT": get_environment_variable("POSTGRES_PORT"),
-        "PASSWORD": get_environment_variable("POSTGRES_PASSWORD"),
+        "NAME": get_environment_variable("POSTGRES_DB", raise_exception=False),
+        "USER": get_environment_variable("POSTGRES_USER", raise_exception=False),
+        "HOST": get_environment_variable("POSTGRES_HOST", raise_exception=False),
+        "PORT": get_environment_variable("POSTGRES_PORT", raise_exception=False),
+        "PASSWORD": get_environment_variable(
+            "POSTGRES_PASSWORD", raise_exception=False
+        ),
         # 'OPTIONS': {'sslmode': 'require'},
     },
-    "test": {"ENGINE": "django.db.backends.sqlite3", "NAME": "db.sqlite3"},
 }
-
-# replace default database for testing.
-if "test" in sys.argv:
-    DATABASES["default"] = {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": "db.sqlite3",
-    }
 
 
 # Password validation
