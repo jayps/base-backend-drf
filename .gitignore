@@ -20,3 +20,7 @@ coverage.*
 !.gitignore
 !.pre-commit-config.yaml
 !.travis.yml
+
+db-data
+./db.sqlite3
+static
