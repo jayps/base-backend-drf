@@ -11,10 +11,6 @@ Some batteries:
 ## Getting started
 Fork this repo to get started. This app is dockerized, so just run `docker-compose up -d` to start the application. Local development uses `python manage.py runserver`, whereas values like `staging` or `production` for the `environment` environment variable will cause the app to run with a uwsgi server.
 
-# TODO:
-- Example endpoints and models, including unit tests. Consider using users endpoints for this kind of thing.
-- Permissions system.
-
 ## Code formatting
 Please run `pre-commit install` before making commits to this repo. That'll helo with formatting.
 

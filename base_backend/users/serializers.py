@@ -1,5 +1,6 @@
 from abc import ABC
 
+from django.contrib.auth.models import Group
 from rest_framework import serializers
 from rest_framework.serializers import Serializer, ModelSerializer
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -33,7 +34,26 @@ class RegisterResponseSerializer(Serializer):
     last_name = serializers.CharField()
 
 
+class UserGroupSerializer(ModelSerializer):
+    class Meta:
+        model = Group
+        fields = "__all__"
+
+
 class UserSerializer(ModelSerializer):
+    groups = UserGroupSerializer(many=True, read_only=True)
+
     class Meta:
         model = AppUser
-        fields = ("id", "email", "first_name", "last_name")
+        fields = (
+            "id",
+            "email",
+            "first_name",
+            "last_name",
+            "is_staff",
+            "is_superuser",
+            "groups",
+            "user_permissions",
+            "date_joined",
+            "is_active",
+        )

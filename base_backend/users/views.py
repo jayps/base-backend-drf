@@ -3,8 +3,10 @@ from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.generics import CreateAPIView
+from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.viewsets import ModelViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from base_backend.users.models import AppUser
@@ -51,3 +53,9 @@ class RegisterView(APIView):
 
         result = UserSerializer(created_user)
         return Response(data=result.data, status=status.HTTP_201_CREATED)
+
+
+class UsersViewSet(ModelViewSet):
+    queryset = AppUser.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = (IsAdminUser,)
