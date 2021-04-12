@@ -47,5 +47,5 @@ urlpatterns = [
     path("api/auth/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("api/auth/register/", RegisterView.as_view()),
     # Apps
-    path("users/", include("base_backend.users.urls")),
+    path("api/users/", include("base_backend.users.urls")),
 ]
