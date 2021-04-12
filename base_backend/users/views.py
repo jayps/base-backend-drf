@@ -59,3 +59,7 @@ class UsersViewSet(ModelViewSet):
     queryset = AppUser.objects.all()
     serializer_class = UserSerializer
     permission_classes = (IsAdminUser,)
+    search_fields = ("first_name", "last_name", "email")
+    ordering_fields = ("first_name", "last_name", "email", "date_joined")
+    filterset_fields = ("is_active", "is_superuser", "is_staff")
+    # TODO: Pagination
