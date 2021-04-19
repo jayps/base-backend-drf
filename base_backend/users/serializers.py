@@ -16,6 +16,8 @@ class AppUserTokenObtainPairSerializer(TokenObtainPairSerializer):
         token["email"] = user.email
         token["first_name"] = user.first_name
         token["last_name"] = user.last_name
+        token["is_staff"] = user.is_staff
+        token["is_superuser"] = user.is_superuser
 
         return token
 
