@@ -23,6 +23,8 @@ class AppUserTokenObtainPairView(TokenObtainPairView):
 
 
 class RegisterView(APIView):
+    permission_classes = ()
+
     @swagger_auto_schema(
         request_body=RegisterRequestSerializer,
         responses={
@@ -62,4 +64,3 @@ class UsersViewSet(ModelViewSet):
     search_fields = ("first_name", "last_name", "email")
     ordering_fields = ("first_name", "last_name", "email", "date_joined")
     filterset_fields = ("is_active", "is_superuser", "is_staff")
-    # TODO: Pagination
