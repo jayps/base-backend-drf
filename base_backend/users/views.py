@@ -1,3 +1,4 @@
+from django.contrib.auth.models import Group
 from django.db import IntegrityError
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
@@ -15,6 +16,7 @@ from base_backend.users.serializers import (
     RegisterRequestSerializer,
     UserSerializer,
     RegisterResponseSerializer,
+    UserGroupSerializer,
 )
 
 
@@ -64,3 +66,11 @@ class UsersViewSet(ModelViewSet):
     search_fields = ("first_name", "last_name", "email")
     ordering_fields = ("first_name", "last_name", "email", "date_joined")
     filterset_fields = ("is_active", "is_superuser", "is_staff")
+
+
+class GroupsViewSet(ModelViewSet):
+    queryset = Group.objects.all()
+    serializer_class = UserGroupSerializer
+    permission_classes = (IsAdminUser,)
+    search_fields = ("name",)
+    ordering_fields = ("name",)
